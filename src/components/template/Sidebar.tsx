@@ -6,7 +6,7 @@ export default function Sidebar(){
         <aside>
             <ul>
                 <MenuItem url="/" icon={IconHome} text="Home" />
-                <MenuItem url="/config" icon={IconConfig} text="Config" />
+                <MenuItem url="/Setting" icon={IconConfig} text="Settings" />
                 <MenuItem url="/News" icon={IconBell} text="News" />
             </ul>
         </aside>

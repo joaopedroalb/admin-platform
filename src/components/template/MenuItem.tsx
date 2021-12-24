@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface MenuItemProps{
     url:string
     text:string
@@ -6,10 +8,21 @@ interface MenuItemProps{
 
 export default function MenuItem(props:MenuItemProps){
     return(
-        <li className={`
-            cursor-pointer
-        `}>
-            {props.icon}
+        <li className={`hover:bg-gray-100 cursor-pointer`}>
+            <Link href={props.url}>
+                <a className={`
+                    flex flex-col justify-center items-center
+                    h-20 w-20
+                    cursor-pointer
+                `}>
+                    {props.icon}
+                    <span className={`
+                        text-xs font-light text-gray-600
+                    `}>
+                        {props.text}
+                    </span>
+                </a>
+            </Link>
         </li>
     )
 }
