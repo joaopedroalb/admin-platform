@@ -1,7 +1,14 @@
+import MenuItem from "./MenuItem";
+import {IconHome,IconConfig, IconBell} from "../icons"
+
 export default function Sidebar(){
     return(
         <aside>
-            <h1>Menu</h1>
+            <ul>
+                <MenuItem url="/" icon={IconHome} text="Home" />
+                <MenuItem url="/config" icon={IconConfig} text="Config" />
+                <MenuItem url="/News" icon={IconBell} text="News" />
+            </ul>
         </aside>
     )
 }
