@@ -12,7 +12,7 @@ type AppProviderProps = {
 }
 
 export function AppProvider(props:AppProviderProps){
-    const [theme,setTheme] = useState<Theme>('')
+    const [theme,setTheme] = useState<Theme>('dark')
     
     function switchTheme(){
         setTheme(theme === '' ? 'dark':'')

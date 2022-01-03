@@ -1,3 +1,4 @@
+import BtnTheme from "./BtnTheme";
 import Title from "./Title";
 
 interface HeaderProps{
@@ -7,8 +8,11 @@ interface HeaderProps{
 
 export default function Header(props:HeaderProps){
     return(
-        <div>
+        <div className="flex">
             <Title title={props.title} subtitle={props.subtitle}/>
+            <div className={`flex flex-grow justify-end`}>
+                <BtnTheme/>
+            </div>
         </div>
     )
 }
