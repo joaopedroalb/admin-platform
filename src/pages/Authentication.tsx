@@ -14,13 +14,26 @@ export default function Authentication(){
         }
     }
 
+    function changeStatus(state:'login'|'cadastro'){
+        setEmail('')
+        setPassword('')
+        setStatus(state)
+    }
+
     return(
-        <div className="flex flex-col h-screen items-center justify-center">
-            <div className="w-1/2">
+        <div className="flex h-screen items-center justify-center">
+            <div className="hidden md:block w-1/2 lg:w-2/3">
+                <img 
+                    src="https://source.unsplash.com/random" 
+                    alt="Login Image"
+                    className="h-screen w-full object-cover"
+                />
+            </div>
+            <div className="m-10 w-full md:w-1/2 lg:w-1/3">
                 <h1 className={`
-                    text-xl font-semibold mb-5
+                    text-2xl font-semibold mb-5
                 `}>
-                    {status==='login'? 'Entre com Sua Conta ': 'Cadastre-se na Plataforma lider'}
+                    {status==='login'? 'Entre com Sua Conta ': 'Cadastre-se na Plataforma'}
                 </h1>
                 <AuthInput 
                     label="Email"
@@ -52,6 +65,29 @@ export default function Authentication(){
                 `}>
                     Entrar com Google
                 </button>
+
+            {
+               status === "login" ? (
+                <p className="mt-8">
+                    Novo por aqui? 
+                    <a onClick={()=>changeStatus("cadastro")}
+                        className={`
+                            text-blue-500 hover:text-blue-700 font-semibold
+                            cursor-pointer ml-1
+                        `}>Crie uma conta gratuitamente</a>
+                </p>
+               ) :
+               (
+                <p className="mt-8">
+                    Já faz parte da nossa plataforma?
+                    <a onClick={()=>changeStatus("login")}
+                        className={`
+                        text-blue-500 hover:text-blue-700 font-semibold
+                        cursor-pointer ml-1
+                    `}>Entre com sua conta</a>
+                </p>
+               )
+            }
 
             </div>
         </div>
