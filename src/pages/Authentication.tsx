@@ -1,7 +1,9 @@
 import { useState } from "react";
 import AuthInput from "../components/auth/AuthInput";
+import { IconWarn } from "../components/icons";
 
 export default function Authentication(){
+    const [error,setError] = useState<string>('')
     const [status,setStatus] = useState<'login'|'cadastro'>('login')
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
@@ -9,8 +11,12 @@ export default function Authentication(){
     function submitForms(){
         if(status === 'login'){
             console.log(`login com o email ${email} e a senha ${password}`)
+            if(email==''||password=='')
+            showError("Ocorrou um erro no login")
         }else{
             console.log('cadastro')
+            if(email==''||password=='')
+            showError("Ocorrou um erro no cadastro")
         }
     }
 
@@ -18,6 +24,11 @@ export default function Authentication(){
         setEmail('')
         setPassword('')
         setStatus(state)
+    }
+
+    function showError(msg:string, timeSeconds=5){
+        setError(msg)
+        setTimeout(()=>setError(''),timeSeconds*1000)
     }
 
     return(
@@ -35,6 +46,16 @@ export default function Authentication(){
                 `}>
                     {status==='login'? 'Entre com Sua Conta ': 'Cadastre-se na Plataforma'}
                 </h1>
+
+                {error!=''&&<div className={`
+                    flex items-center
+                    bg-red-400 text-white py-3 px-5 my-2
+                    border border-red-700 rounded-lg
+                `}>
+                    {IconWarn}
+                    <span className="ml-3">{error}</span>
+                </div>}
+
                 <AuthInput 
                     label="Email"
                     type="email"
