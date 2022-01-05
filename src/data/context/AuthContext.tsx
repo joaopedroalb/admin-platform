@@ -20,11 +20,11 @@ async function normalizedUser(userFirebase:firebase.User):Promise<User>{
     const token = await userFirebase.getIdToken()
     return{
         uid:userFirebase.uid,
-        name:userFirebase.displayName,
-        email:userFirebase.email,
+        name:userFirebase.displayName??"",
+        email:userFirebase.email??"",
         token,
         provider:userFirebase.providerData[0]?.providerId,
-        imageUrl:userFirebase.photoURL
+        imageUrl:userFirebase.photoURL??""
 
     }
 }
@@ -36,7 +36,7 @@ export function AuthProvider({children}:AuthProviderProps){
         const resp = await firebase.auth().signInWithPopup(
             new firebase.auth.GoogleAuthProvider()
         )
-        
+
         if(resp.user?.email){
             const userGoogle = await normalizedUser(resp.user)
             setUser(userGoogle)
