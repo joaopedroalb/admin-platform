@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import Head from 'next/head'
 import Image from 'next/image'
 import router from 'next/router'
 
@@ -17,6 +18,12 @@ export default function ForcerAuth(props:ForcerAuthProps){
     function renderContent(){
         return(
             <>
+            <Head>
+                <script dangerouslySetInnerHTML={{
+                    __html:`
+                        if(!document.cookie?.includes("admin-template-auth")){window.location.href="/Authentication"}`
+                }}/>
+            </Head>
             {props.children}
             </>
         )
