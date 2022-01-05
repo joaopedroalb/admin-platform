@@ -1,9 +1,9 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
-type Theme = 'dark' | ''
+//type Theme = 'dark' | ''
 
 type AppContextData={
-    theme:Theme
+    theme:string
     switchTheme:()=>void
 }
 
@@ -12,11 +12,18 @@ type AppProviderProps = {
 }
 
 export function AppProvider(props:AppProviderProps){
-    const [theme,setTheme] = useState<Theme>('dark')
+    const [theme,setTheme] = useState('dark')
     
     function switchTheme(){
-        setTheme(theme === '' ? 'dark':'')
+        const newTheme = theme === '' ? 'dark':''
+        setTheme(newTheme)
+        localStorage.setItem('theme',newTheme)
     }
+
+    useEffect(()=>{
+        const themeSaved = localStorage.getItem('theme')
+        setTheme(themeSaved??'dark')
+    },[])
 
     return(
         <AppContext.Provider value={{
