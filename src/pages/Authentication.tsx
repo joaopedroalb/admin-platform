@@ -9,18 +9,23 @@ export default function Authentication(){
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
 
-    const {loginGoogle} = useAuthData()
+    const {loginGoogle,login,register} = useAuthData()
 
     async function submitForms(){
-        if(status === 'login'){
-            console.log(`login com o email ${email} e a senha ${password}`)
-            if(email==''||password=='')
-            showError("Ocorrou um erro no login")
-        }else{
-            console.log('cadastro')
-            if(email==''||password=='')
-            showError("Ocorrou um erro no cadastro")
+        try{
+
+            if(status === 'login'){
+                if(login)
+                await login(email,password)
+            }else{
+                if(register)
+                await register(email,password)
+            }
+
+        }catch(e:any){
+            showError(e?.message ?? "Erro desconhecido !",7)
         }
+            
     }
 
     function changeStatus(state:'login'|'cadastro'){

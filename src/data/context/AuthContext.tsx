@@ -8,8 +8,10 @@ import User from '../../model/User'
 interface AuthContextProps{
     user?:User|null
     loading?:boolean
+    register?:(name:string,password:string)=>Promise<void>
+    login?:(name:string,password:string)=>Promise<void>
     loginGoogle?:()=>Promise<void>
-    logoutGoogle?:()=>Promise<void>
+    logout?:()=>Promise<void>
 }
 
 interface AuthProviderProps{
@@ -64,6 +66,33 @@ export function AuthProvider({children}:AuthProviderProps){
         }
     }
 
+    async function register(email:string,password:string){
+        try{
+            setLoading(true)
+            const resp = await firebase.auth().createUserWithEmailAndPassword(email,password)
+            if(resp.user){
+                await configureSession(resp.user)
+                route.push('/')
+            } 
+        }finally{
+            setLoading(false)
+        }
+    }
+
+    async function login(email:string,password:string){
+        try{
+            setLoading(true)
+            const resp = await firebase.auth().signInWithEmailAndPassword(email,password)
+    
+            if(resp.user){
+                await configureSession(resp.user)
+                route.push('/')
+            } 
+        }finally{
+            setLoading(false)
+        }
+    }
+    
     async function loginGoogle(){
         try{
             setLoading(true)
@@ -72,7 +101,7 @@ export function AuthProvider({children}:AuthProviderProps){
             )
     
             if(resp.user){
-                configureSession(resp.user)
+                await configureSession(resp.user)
                 route.push('/')
             } 
         }finally{
@@ -80,7 +109,7 @@ export function AuthProvider({children}:AuthProviderProps){
         }
     }
 
-    async function logoutGoogle(){
+    async function logout(){
         try{
             setLoading(true)
             await firebase.auth().signOut()
@@ -104,7 +133,7 @@ export function AuthProvider({children}:AuthProviderProps){
 
     return(
         <AuthContext.Provider value={{
-            user,loginGoogle,logoutGoogle,loading
+            user,loginGoogle,logout,loading,login,register
         }}>
             {children}
         </AuthContext.Provider>

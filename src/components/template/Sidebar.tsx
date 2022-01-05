@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import useAuthData from "../../data/hook/useAuthData";
 
 export default function Sidebar(){
-    const {logoutGoogle} = useAuthData()
+    const {logout} = useAuthData()
 
     return(
         <aside className={`
@@ -26,7 +26,7 @@ export default function Sidebar(){
             </ul>
             <ul>
                 <MenuItem icon={IconLogout} text="Logout" 
-                onClick={logoutGoogle}
+                onClick={logout}
                 className={`text-red-600 dark:text-red-400
                             hover:bg-red-400 hover:text-white
                             dark:hover:text-white`}
