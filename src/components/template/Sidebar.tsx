@@ -1,8 +1,11 @@
 import MenuItem from "./MenuItem";
 import {IconHome,IconConfig, IconBell, IconLogout} from "../icons"
 import Logo from "./Logo";
+import useAuthData from "../../data/hook/useAuthData";
 
 export default function Sidebar(){
+    const {logoutGoogle} = useAuthData()
+
     return(
         <aside className={`
             flex flex-col
@@ -23,7 +26,7 @@ export default function Sidebar(){
             </ul>
             <ul>
                 <MenuItem icon={IconLogout} text="Logout" 
-                onClick={()=>console.log("Logout")}
+                onClick={logoutGoogle}
                 className={`text-red-600 dark:text-red-400
                             hover:bg-red-400 hover:text-white
                             dark:hover:text-white`}
