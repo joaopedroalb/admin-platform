@@ -7,6 +7,7 @@ import User from '../../model/User'
 
 interface AuthContextProps{
     user?:User|null
+    loading?:boolean
     loginGoogle?:()=>Promise<void>
     logoutGoogle?:()=>Promise<void>
 }
@@ -96,12 +97,14 @@ export function AuthProvider({children}:AuthProviderProps){
         if(Cookies.get('admin-template-auth')){
             const cancel = firebase.auth().onIdTokenChanged(configureSession)  
             return () => cancel()
+        }else{
+            setLoading(false)
         }
     },[])
 
     return(
         <AuthContext.Provider value={{
-            user,loginGoogle,logoutGoogle
+            user,loginGoogle,logoutGoogle,loading
         }}>
             {children}
         </AuthContext.Provider>
