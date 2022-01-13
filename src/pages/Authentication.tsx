@@ -81,7 +81,7 @@ export default function Authentication(){
 
                 <button onClick={submitForms} className={`
                     w-full bg-indigo-500 hover:bg-indigo-400
-                    text-white rounded-lg px-4 py-3 mt-6
+                    text-white rounded-full px-4 py-3 mt-6
                 `}>
                     {status === 'login' ? 'Entrar':'Cadastrar'}
                 </button>
@@ -90,7 +90,7 @@ export default function Authentication(){
 
                 <button onClick={loginGoogle} className={`
                     w-full bg-red-500 hover:bg-red-400
-                    text-white rounded-lg px-4 py-3
+                    text-white rounded-full px-4 py-3
                 `}>
                     Entrar com Google
                 </button>
